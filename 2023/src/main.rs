@@ -2,6 +2,7 @@ use std::env;
 
 pub mod day1;
 pub mod day2;
+pub mod day3;
 
 pub fn main() {
     let args: Vec<String> = env::args().collect();
@@ -18,6 +19,7 @@ fn launch_day(day: &str) {
     match day {
         "day1" => day1::launch(),
         "day2" => day2::launch(),
+        "day3" => day3::launch(),
         _ => {
             println!("Day {day} doesn't exist")
         }
