@@ -4,8 +4,9 @@ import std::collections::list;
 import std::collections::map;
 import std::sort;
 
+import lex;
+
 def IntList    = List(<int>);
-def StringList = List(<String>);
 def IntIntMap  = HashMap(<int, int>);
 
 fn void main() {
@@ -17,7 +18,7 @@ fn void main() {
     IntList right; right.new_init();
 
     while (try line = io::treadline(stream)) {
-        StringList splitLine = splitSpaces(line);
+        StringList splitLine = lex::splitSpaces(line);
         assert(splitLine.len() == 2);
         left.push(splitLine[0].to_int()!!);
         right.push(splitLine[1].to_int()!!);
@@ -48,40 +49,4 @@ fn void main() {
     }
 
     io::printfn("Sum of similarities : %d", sumOfSimilarities);
-}
-
-enum LexState {
-    SPACE,
-    CHAR,
-}
-
-fn StringList splitSpaces(String s) {
-    StringList result;
-    result.new_init();
-
-    LexState state = CHAR;
-    usz wordStart = 0;
-    if (s[0] == ' ') state = SPACE;
-
-    for (usz i = 1; i < s.len; i++) {
-        if (state == CHAR) {
-            if (s[i] == ' ') {
-                state = SPACE;
-                result.push(s[wordStart..i - 1]);
-            }
-        }
-
-        if (state == SPACE) {
-            if (s[i] != ' ') {
-                state = CHAR;
-                wordStart = i;
-            }
-        }
-    }
-
-    if (state == CHAR) {
-        result.push(s[wordStart .. s.len - 1]);
-    }
-
-    return result;
 }
