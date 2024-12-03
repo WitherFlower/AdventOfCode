@@ -1,0 +1,4 @@
+input
+*.lib
+*.exe
+*.pdb
